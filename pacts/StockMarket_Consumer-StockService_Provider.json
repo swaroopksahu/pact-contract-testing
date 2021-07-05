@@ -1,0 +1,69 @@
+{
+    "provider": {
+        "name": "StockService_Provider"
+    },
+    "consumer": {
+        "name": "StockMarket_Consumer"
+    },
+    "interactions": [
+        {
+            "description": "A request to get the price for stock ITC from NSE.",
+            "request": {
+                "method": "GET",
+                "path": "/market/NSE/ITC"
+            },
+            "response": {
+                "status": 200,
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "body": {
+                    "marketName": "NSE",
+                    "stockName": "ITC",
+                    "price": 502
+                },
+                "matchingRules": {
+                    "body": {
+                        "$.marketName": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.stockName": {
+                            "matchers": [
+                                {
+                                    "match": "type"
+                                }
+                            ],
+                            "combine": "AND"
+                        },
+                        "$.price": {
+                            "matchers": [
+                                {
+                                    "match": "integer"
+                                }
+                            ],
+                            "combine": "AND"
+                        }
+                    }
+                }
+            },
+            "providerStates": [
+                {
+                    "name": "This is ITC stock listed in NSE"
+                }
+            ]
+        }
+    ],
+    "metadata": {
+        "pact-specification": {
+            "version": "3.0.0"
+        },
+        "pact-jvm": {
+            "version": "3.5.0"
+        }
+    }
+}
